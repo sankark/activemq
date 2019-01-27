@@ -1,0 +1,11 @@
+FROM python:2.7-slim
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY amq-admin.py /opt/microservices/
+COPY requirements.txt /opt/microservices/
+
+EXPOSE 9080
+WORKDIR /opt/microservices
+CMD python amq-admin.py 9080

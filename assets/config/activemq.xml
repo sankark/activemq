@@ -16,9 +16,9 @@
 -->
 <!-- START SNIPPET: example -->
 <beans
-  xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
 
     <!-- Allows us to use system properties as variables in this configuration file -->
@@ -28,7 +28,7 @@
         </property>
     </bean>
 
-   <!-- Allows accessing the server log -->
+    <!-- Allows accessing the server log -->
     <bean id="logQuery" class="io.fabric8.insight.log.log4j.Log4jLogQuery"
           lazy-init="false" scope="singleton"
           init-method="start" destroy-method="stop">
@@ -41,21 +41,21 @@
 
         <destinationPolicy>
             <policyMap>
-              <policyEntries>
-                <policyEntry topic=">" >
-                    <!-- The constantPendingMessageLimitStrategy is used to prevent
-                         slow topic consumers to block producers and affect other consumers
-                         by limiting the number of messages that are retained
-                         For more information, see:
+                <policyEntries>
+                    <policyEntry topic=">" >
+                        <!-- The constantPendingMessageLimitStrategy is used to prevent
+                             slow topic consumers to block producers and affect other consumers
+                             by limiting the number of messages that are retained
+                             For more information, see:
 
-                         http://activemq.apache.org/slow-consumer-handling.html
+                             http://activemq.apache.org/slow-consumer-handling.html
 
-                    -->
-                  <pendingMessageLimitStrategy>
-                    <constantPendingMessageLimitStrategy limit="1000"/>
-                  </pendingMessageLimitStrategy>
-                </policyEntry>
-              </policyEntries>
+                        -->
+                        <pendingMessageLimitStrategy>
+                            <constantPendingMessageLimitStrategy limit="1000"/>
+                        </pendingMessageLimitStrategy>
+                    </policyEntry>
+                </policyEntries>
             </policyMap>
         </destinationPolicy>
 
@@ -78,29 +78,18 @@
 
             http://activemq.apache.org/persistence.html
         -->
-        <persistenceAdapter>
-            <kahaDB directory="${activemq.data}/kahadb"/>
-        </persistenceAdapter>
-
 
         <persistenceAdapter>
             <jdbcPersistenceAdapter dataDirectory="${activemq.data}/activemq-data" dataSource="#mysql-ds"/>
         </persistenceAdapter>
 
-        <bean id="mysql-ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-            <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-            <property name="url" value="jdbc:mysql://ep-utils-db.cp4u2wlfefuk.us-east-1.rds.amazonaws.com/activemq-0?relaxAutoCommit=true"/>
-            <property name="username" value="epadmin"/>
-            <property name="password" value="EPadm!n0"/>
-            <property name="poolPreparedStatements" value="true"/>
-        </bean>
 
-          <!--
-            The systemUsage controls the maximum amount of space the broker will
-            use before disabling caching and/or slowing down producers. For more information, see:
-            http://activemq.apache.org/producer-flow-control.html
-          -->
-          <systemUsage>
+        <!--
+          The systemUsage controls the maximum amount of space the broker will
+          use before disabling caching and/or slowing down producers. For more information, see:
+          http://activemq.apache.org/producer-flow-control.html
+        -->
+        <systemUsage>
             <systemUsage>
                 <memoryUsage>
                     <memoryUsage percentOfJvmHeap="70" />
@@ -136,6 +125,15 @@
 
     </broker>
 
+    <bean id="mysql-ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://DB_HOSTNAME/DB_NAME?relaxAutoCommit=true&amp;createDatabaseIfNotExist=true"/>
+        <property name="username" value="DB_USER"/>
+        <property name="password" value="DB_PASSWORD"/>
+        <property name="poolPreparedStatements" value="true"/>
+
+    </bean>
     <!--
         Enable web consoles, REST and Ajax APIs and demos
         The web consoles requires by default login, you can disable this in the jetty.xml file

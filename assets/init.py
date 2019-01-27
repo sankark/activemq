@@ -146,7 +146,7 @@ class ServiceRun():
         self.replace_all(ACTIVEMQ_CONF + "/log4j.properties", "log4j\.logger\.org\.apache\.activemq\.audit=[^,]+", "log4j.logger.org.apache.activemq.audit=" + loglevel)
 
 
-    def do_setting_activemq_main(self, name, messageLimit, storageUsage, tempUsage, maxConnection, frameSize, topics, queues, enabledScheduler, enabledAuth):
+    def do_setting_activemq_main(self, name, messageLimit, storageUsage, tempUsage, maxConnection, frameSize, topics, queues, enabledScheduler, enabledAuth, db_hostname, db_user, db_password):
 
         if name is None or name == "":
             raise KeyError("You must set the name")
@@ -172,7 +172,10 @@ class ServiceRun():
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '<tempUsage limit="[^"]+"/>', '<tempUsage limit="' + tempUsage + '"/>')
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '\?maximumConnections=1000', "?maximumConnections=" + str(maxConnection))
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'wireFormat\.maxFrameSize=104857600', "wireFormat.maxFrameSize=" + str(frameSize))
-
+        self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'DB_HOSTNAME', db_hostname)
+        self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'DB_USER', db_user)
+        self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'DB_PASSWORD', db_password)
+        self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'DB_NAME', name)
         # Look for enabled scheduler
         if enabledScheduler == "true" :
         	self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '<broker', '<broker schedulerSupport="true"')
@@ -317,7 +320,24 @@ if __name__ == '__main__':
         serviceRun.do_setting_activemq_log4j(os.getenv('ACTIVEMQ_LOGLEVEL'))
 
     # We set the main parameters
-    serviceRun.do_setting_activemq_main(os.getenv('ACTIVEMQ_NAME', os.getenv('HOSTNAME', 'localhost')), os.getenv('ACTIVEMQ_PENDING_MESSAGE_LIMIT', '1000'), os.getenv('ACTIVEMQ_STORAGE_USAGE', '100 gb'), os.getenv('ACTIVEMQ_TEMP_USAGE', '50 gb'), os.getenv('ACTIVEMQ_MAX_CONNECTION', '1000'), os.getenv('ACTIVEMQ_FRAME_SIZE', '104857600'), os.getenv('ACTIVEMQ_STATIC_TOPICS'), os.getenv('ACTIVEMQ_STATIC_QUEUES'), os.getenv('ACTIVEMQ_ENABLED_SCHEDULER', 'true'), os.getenv('ACTIVEMQ_ENABLED_AUTH', 'false'))
+    db_hostname = os.getenv('ACTIVEMQ_DB_HOSTNAME', os.getenv('ACTIVEMQ_DB_HOSTNAME', 'localhost'))
+    db_user = os.getenv('ACTIVEMQ_DB_USER', os.getenv('ACTIVEMQ_DB_USER', 'activemq'))
+    db_password = os.getenv('ACTIVEMQ_DB_PASSWORD', os.getenv('ACTIVEMQ_DB_PASSWORD', 'activemq'))
+
+    serviceRun.do_setting_activemq_main(os.getenv('ACTIVEMQ_NAME', os.getenv('HOSTNAME', 'localhost')),
+                                        os.getenv('ACTIVEMQ_PENDING_MESSAGE_LIMIT', '1000'),
+                                        os.getenv('ACTIVEMQ_STORAGE_USAGE', '100 gb'),
+                                        os.getenv('ACTIVEMQ_TEMP_USAGE', '50 gb'),
+                                        os.getenv('ACTIVEMQ_MAX_CONNECTION', '1000'),
+                                        os.getenv('ACTIVEMQ_FRAME_SIZE', '104857600'),
+                                        os.getenv('ACTIVEMQ_STATIC_TOPICS'),
+                                        os.getenv('ACTIVEMQ_STATIC_QUEUES'),
+                                        os.getenv('ACTIVEMQ_ENABLED_SCHEDULER', 'true'),
+                                        os.getenv('ACTIVEMQ_ENABLED_AUTH', 'false'),
+                                        db_hostname,
+                                        db_user,
+                                        db_password
+                                        )
 
     # We setting wrapper
     serviceRun.do_setting_activemq_wrapper(os.getenv('ACTIVEMQ_MIN_MEMORY', '128'), os.getenv('ACTIVEMQ_MAX_MEMORY', '1024'))
