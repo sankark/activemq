@@ -6,7 +6,7 @@ import os
 import shutil
 import re
 from distutils.dir_util import copy_tree
-
+import subprocess
 
 ACTIVEMQ_HOME = "/opt/activemq"
 ACTIVEMQ_CONF = ACTIVEMQ_HOME + '/conf.tmp'
@@ -258,6 +258,24 @@ class ServiceRun():
         self.replace_all(ACTIVEMQ_CONF + "/log4j.properties", "\$\{activemq\.base\}\/data\/", "/var/log/activemq/")
         self.replace_all(ACTIVEMQ_HOME + "/bin/linux-x86-64/wrapper.conf" ,"wrapper\.logfile=%ACTIVEMQ_DATA%\/wrapper\.log", "wrapper.logfile=/var/log/activemq/wrapper.log")
 
+    def create_database(self, db_hostname, db_user, db_password, name):
+        sql = 'mysql -u"%s" -p"%s" -h"%s" -e "create database \`%s\`;"' %(db_user, db_password, db_hostname, name)
+        p = subprocess.Popen(sql, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        output = ''
+        for line in p.stdout.readlines():
+            output = output + line
+        retval = p.wait()
+        if retval == 0:
+            print('database %s created succesfully' % name)
+        else:
+            if retval != 0 and 'database exists' in output:
+                print('database %s already exists' % name)
+            else:
+                print('ERROR: database %s creation failed with following error - %s' % (name, output))
+
+
+
+
 
 if __name__ == '__main__':
 
@@ -323,8 +341,10 @@ if __name__ == '__main__':
     db_hostname = os.getenv('ACTIVEMQ_DB_HOSTNAME', os.getenv('ACTIVEMQ_DB_HOSTNAME', 'localhost'))
     db_user = os.getenv('ACTIVEMQ_DB_USER', os.getenv('ACTIVEMQ_DB_USER', 'activemq'))
     db_password = os.getenv('ACTIVEMQ_DB_PASSWORD', os.getenv('ACTIVEMQ_DB_PASSWORD', 'activemq'))
+    name = os.getenv('ACTIVEMQ_NAME', os.getenv('HOSTNAME', 'localhost'))
 
-    serviceRun.do_setting_activemq_main(os.getenv('ACTIVEMQ_NAME', os.getenv('HOSTNAME', 'localhost')),
+    serviceRun.create_database(db_hostname, db_user, db_password, name)
+    serviceRun.do_setting_activemq_main(name,
                                         os.getenv('ACTIVEMQ_PENDING_MESSAGE_LIMIT', '1000'),
                                         os.getenv('ACTIVEMQ_STORAGE_USAGE', '100 gb'),
                                         os.getenv('ACTIVEMQ_TEMP_USAGE', '50 gb'),

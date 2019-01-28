@@ -4,7 +4,8 @@ MAINTAINER Sebastien LANGOUREAUX <linuxworkgroup@hotmail.com>
 RUN sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 RUN apt-get update -y
 RUN apt-get install -y iputils-ping
-RUN apt-get install -y dnsutils 
+RUN apt-get install -y dnsutils
+RUN apt-get install -y mysql-client-core-5.6
 
 # Copy the app setting
 COPY assets/config/activemq.xml /opt/activemq/conf/activemq.xml
