@@ -1,5 +1,4 @@
 FROM webcenter/activemq 
-MAINTAINER Sebastien LANGOUREAUX <linuxworkgroup@hotmail.com>
 
 RUN sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 RUN apt-get update -y
