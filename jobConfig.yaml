@@ -1,0 +1,19 @@
+# dont change the app name
+appName: activemq 
+# add users ldap as csv
+authorizedUsers: kanagarathinams
+
+build:
+  type: nope
+scm: git
+test:
+  enabled: false
+staticAnalysis:
+  type: nope
+dynamicAnalysis:
+  type: nope
+publish:
+  type: docker
+version: 1.0.0
+testCommand: "echo hello"
+deploy:
