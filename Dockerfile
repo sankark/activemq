@@ -15,7 +15,7 @@ RUN chmod +x /app/init.py
 RUN chmod +x /app/run.sh
 
 # Copy the Kubernetes discovery agent
-COPY assets/activemq-k8s-discovery-1.0-SNAPSHOT-jar-with-dependencies.jar /opt/activemq/lib/
+COPY assets/activemq-k8s-discovery-1.0.2-jar-with-dependencies.jar /opt/activemq/lib/
 RUN cd /opt/activemq/lib/optional && { curl -O http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.14/mysql-connector-java-8.0.14.jar ; cd -; }
 RUN cd /opt/activemq/lib/optional && { curl -O http://central.maven.org/maven2/org/apache/commons/commons-dbcp2/2.1.1/commons-dbcp2-2.1.1.jar ; cd -; }
 
