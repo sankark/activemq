@@ -146,7 +146,7 @@ class ServiceRun():
         self.replace_all(ACTIVEMQ_CONF + "/log4j.properties", "log4j\.logger\.org\.apache\.activemq\.audit=[^,]+", "log4j.logger.org.apache.activemq.audit=" + loglevel)
 
 
-    def do_setting_activemq_main(self, name, messageLimit, storageUsage, tempUsage, maxConnection, frameSize, topics, queues, enabledScheduler, enabledAuth, db_hostname, db_user, db_password):
+    def do_setting_activemq_main(self, name, messageLimit, storageUsage, tempUsage, maxConnection, frameSize, topics, queues, enabledScheduler, enabledAuth, db_hostname, db_user, db_password, connector_uri):
 
         if name is None or name == "":
             raise KeyError("You must set the name")
@@ -207,12 +207,12 @@ class ServiceRun():
         enableConnector = "true"
         if enableConnector == "true":
             rightManagement = """<networkConnectors>
-          <networkConnector uri="failover:(tcp://activemq-0:61616,tcp://activemq-1:61616,tcp://activemq-2:61616)"
+          <networkConnector uri="%s"
             dynamicOnly="true"
             networkTTL="3"
             prefetchSize="1"
             decreaseNetworkConsumerPriority="true" />
-        </networkConnectors> \n"""
+        </networkConnectors> \n""" % (connector_uri)
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
 
         if (topics is not None and topics != "") or (queues is not None and queues != ""):
@@ -343,6 +343,7 @@ if __name__ == '__main__':
     db_password = os.getenv('ACTIVEMQ_DB_PASSWORD', os.getenv('ACTIVEMQ_DB_PASSWORD', 'activemq'))
     name = os.getenv('ACTIVEMQ_NAME', os.getenv('HOSTNAME', 'localhost'))
 
+    connector_uri = os.getenv('ACTIVEMQ_CONNECTOR_URI', 'k8s://default?podLabelKey=app&amp;podLabelValue=activemq')
     serviceRun.create_database(db_hostname, db_user, db_password, name)
     serviceRun.do_setting_activemq_main(name,
                                         os.getenv('ACTIVEMQ_PENDING_MESSAGE_LIMIT', '1000'),
@@ -356,7 +357,8 @@ if __name__ == '__main__':
                                         os.getenv('ACTIVEMQ_ENABLED_AUTH', 'false'),
                                         db_hostname,
                                         db_user,
-                                        db_password
+                                        db_password,
+                                        connector_uri
                                         )
 
     # We setting wrapper
