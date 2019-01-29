@@ -212,7 +212,7 @@ class ServiceRun():
             networkTTL="3"
             prefetchSize="1"
             decreaseNetworkConsumerPriority="true" />
-            <networkConnector dynamicOnly="true" uri="static:(tcp://activemq-0:61616,tcp://activemq-1:61616,tcp://activemq-2:61616)"/>
+            <networkConnector dynamicOnly="true" uri="failover:(tcp://activemq-0:61616,tcp://activemq-1:61616,tcp://activemq-2:61616)"/>
         </networkConnectors> \n"""
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
 
