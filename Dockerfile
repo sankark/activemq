@@ -34,6 +34,4 @@ VOLUME ["/opt/activemq/conf"]
 WORKDIR /opt/activemq
 
 #ENTRYPOINT ["/app/init"]
-#CMD ["/app/run.sh"]
-
-CMD tail -f /dev/null
+CMD ["/app/run.sh"]

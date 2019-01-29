@@ -80,7 +80,11 @@
         -->
 
         <persistenceAdapter>
-            <jdbcPersistenceAdapter dataDirectory="${activemq.data}/activemq-data" dataSource="#mysql-ds"/>
+            <jdbcPersistenceAdapter dataDirectory="${activemq.data}/activemq-data" dataSource="#mysql-ds">
+                <locker>
+                    <lease-database-locker lockAcquireSleepInterval="10000"/>
+                </locker>
+            </jdbcPersistenceAdapter>
         </persistenceAdapter>
 
 

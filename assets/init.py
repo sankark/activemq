@@ -207,12 +207,11 @@ class ServiceRun():
         enableConnector = "true"
         if enableConnector == "true":
             rightManagement = """<networkConnectors>
-          <networkConnector uri="k8s://default?podLabelKey=app&amp;podLabelValue=activemq"
+          <networkConnector uri="failover:(tcp://activemq-0:61616,tcp://activemq-1:61616,tcp://activemq-2:61616)"
             dynamicOnly="true"
             networkTTL="3"
             prefetchSize="1"
             decreaseNetworkConsumerPriority="true" />
-            <networkConnector dynamicOnly="true" uri="failover:(tcp://activemq-0:61616,tcp://activemq-1:61616,tcp://activemq-2:61616)"/>
         </networkConnectors> \n"""
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
 
