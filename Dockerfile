@@ -8,7 +8,6 @@ RUN apt-get install -y mysql-client-core-5.6
 
 # Copy the app setting
 COPY assets/config/activemq.xml /opt/activemq/conf/activemq.xml
-COPY assets/config/jetty.xml /opt/activemq/conf/jetty.xml
 COPY assets/init.py /app/init.py
 COPY assets/run.sh /app/run.sh
 RUN chmod +x /app/init.py
