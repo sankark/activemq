@@ -176,6 +176,7 @@ class ServiceRun():
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'DB_USER', db_user)
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'DB_PASSWORD', db_password)
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'DB_NAME', name)
+        self.replace_all(ACTIVEMQ_CONF + "/jetty.xml", 'BROKER_NAME', name)
         # Look for enabled scheduler
         if enabledScheduler == "true" :
         	self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '<broker', '<broker schedulerSupport="true"')
