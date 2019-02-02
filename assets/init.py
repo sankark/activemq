@@ -7,6 +7,7 @@ import shutil
 import re
 from distutils.dir_util import copy_tree
 import subprocess
+import time
 
 ACTIVEMQ_HOME = "/opt/activemq"
 ACTIVEMQ_CONF = ACTIVEMQ_HOME + '/conf.tmp'
@@ -260,19 +261,25 @@ class ServiceRun():
         self.replace_all(ACTIVEMQ_HOME + "/bin/linux-x86-64/wrapper.conf" ,"wrapper\.logfile=%ACTIVEMQ_DATA%\/wrapper\.log", "wrapper.logfile=/var/log/activemq/wrapper.log")
 
     def create_database(self, db_hostname, db_user, db_password, name):
-        sql = 'mysql -u"%s" -p"%s" -h"%s" -e "create database \`%s\`;"' %(db_user, db_password, db_hostname, name)
-        p = subprocess.Popen(sql, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        output = ''
-        for line in p.stdout.readlines():
-            output = output + line
-        retval = p.wait()
-        if retval == 0:
-            print('database %s created succesfully' % name)
-        else:
-            if retval != 0 and 'database exists' in output:
-                print('database %s already exists' % name)
+
+        while True:
+            sql = 'mysql -u"%s" -p"%s" -h"%s" -e "create database \`%s\`;"' %(db_user, db_password, db_hostname, name)
+            p = subprocess.Popen(sql, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            output = ''
+            for line in p.stdout.readlines():
+                output = output + line
+            retval = p.wait()
+            if retval == 0:
+                print('database %s created succesfully' % name)
+                break
             else:
-                print('ERROR: database %s creation failed with following error - %s' % (name, output))
+                if retval != 0 and 'database exists' in output:
+                    print('database %s already exists' % name)
+                    break
+                else:
+                    print('ERROR: database %s creation failed with following error - %s' % (name, output))
+                    print('retrying creating database')
+                    time.sleep(5)
 
 
 
