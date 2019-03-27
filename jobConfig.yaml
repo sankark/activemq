@@ -2,7 +2,6 @@
 appName: activemq 
 # add users ldap as csv
 authorizedUsers: kanagarathinams
-
 build:
   type: nope
 scm: git
