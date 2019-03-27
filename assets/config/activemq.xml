@@ -44,7 +44,7 @@
                 <policyEntries>
                     <policyEntry queue=">" enableAudit="false">
                         <networkBridgeFilterFactory>
-                            <conditionalNetworkBridgeFilterFactory replayWhenNoConsumers="true"/>
+                            <conditionalNetworkBridgeFilterFactory replayDelay="1000" replayWhenNoConsumers="true"/>
                         </networkBridgeFilterFactory>
                     </policyEntry>
                     <policyEntry topic=">" >
