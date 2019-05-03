@@ -352,6 +352,16 @@ if __name__ == '__main__':
     name = os.getenv('ACTIVEMQ_NAME', os.getenv('HOSTNAME', 'localhost'))
 
     connector_uri = os.getenv('ACTIVEMQ_CONNECTOR_URI', 'k8s://default?podLabelKey=app&amp;podLabelValue=activemq')
+
+    # remove localnode from the connector
+
+    current_node = "tcp://%s:61616" % name
+    if connector_uri.find(current_node+",") > -1:
+        connector_uri = connector_uri.replace(current_node+",", "")
+    else:
+        connector_uri = connector_uri.replace(","+current_node, "")
+    print(connector_uri)
+
     serviceRun.create_database(db_hostname, db_user, db_password, name)
     serviceRun.do_setting_activemq_main(name,
                                         os.getenv('ACTIVEMQ_PENDING_MESSAGE_LIMIT', '1000'),

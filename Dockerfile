@@ -8,6 +8,7 @@ RUN apt-get install -y mysql-client-core-5.6
 
 # Copy the app setting
 COPY assets/config/activemq.xml /opt/activemq/conf/activemq.xml
+COPY assets/config/log4j.properties /opt/activemq/conf/log4j.properties
 COPY assets/init.py /app/init.py
 COPY assets/run.sh /app/run.sh
 RUN chmod +x /app/init.py

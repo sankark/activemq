@@ -9,22 +9,35 @@ import unittest
 class InitTestCase(unittest.TestCase):
     """Tests for `init.py`."""
 
-    #@classmethod
-    def setUp(self):
-        print("Settup unit test \n")
-        shutil.copytree("test/fixtures/", "test/tmp/conf/");
-        os.makedirs("test/tmp/bin/linux-x86-64")
-        shutil.copy2("test/fixtures/wrapper.conf", "test/tmp/bin/linux-x86-64/")
-        shutil.copy2("test/fixtures/activemq", "test/tmp/bin/linux-x86-64/")
-        init.ACTIVEMQ_HOME = "test/tmp";
-	init.ACTIVEMQ_CONF = init.ACTIVEMQ_HOME + '/conf'
 
 
-    #@classmethod
-    def tearDown(self):
-        print("TearDown unit test \n")
-        shutil.rmtree("test/tmp")
+    # #@classmethod
+    # def setUp(self):
+    #     print("Settup unit test \n")
+    #     shutil.copytree("test/fixtures/", "test/tmp/conf/");
+    #     os.makedirs("test/tmp/bin/linux-x86-64")
+    #     shutil.copy2("test/fixtures/wrapper.conf", "test/tmp/bin/linux-x86-64/")
+    #     shutil.copy2("test/fixtures/activemq", "test/tmp/bin/linux-x86-64/")
+    #     init.ACTIVEMQ_HOME = "test/tmp";
+    # init.ACTIVEMQ_CONF = init.ACTIVEMQ_HOME + '/conf'
+    #
+    #
+    # #@classmethod
+    # def tearDown(self):
+    #     print("TearDown unit test \n")
+    #     shutil.rmtree("test/tmp")
 
+
+    def test_connection_string_test(self):
+
+        name = "activemq-2"
+        current_node = "tcp://%s:61616" % name
+        connector_uri = "static:(tcp://activemq-0:61616,tcp://activemq-1:61616,tcp://activemq-2:61616)?maxReconnectDelay=5000&amp;useExponentialBackOff=false"
+        if connector_uri.find(current_node+",") > -1:
+            connector_uri = connector_uri.replace(current_node+",", "")
+        else:
+            connector_uri = connector_uri.replace(","+current_node, "")
+        print(connector_uri)
 
     def test_do_setting_activemq_users(self):
         """Check the function do_setting_activemq_users"""
