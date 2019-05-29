@@ -183,7 +183,23 @@
             </virtualDestinationInterceptor>
         </destinationInterceptors>
 
+
+
+        <plugins>
+            <bean xmlns="http://www.springframework.org/schema/beans" id="djVirtualSelectorCacheBrokerPlugin"       class="com.dowjones.activemq.selectoraware.broker.DJSubQueueSelectorCacheBrokerPlugin">
+                <property name="cacheStorage" ref="cacheStorageJDBC" />
+            </bean>
+        </plugins>
+
+
     </broker>
+
+
+    <bean xmlns="http://www.springframework.org/schema/beans" id="cacheStorageJDBC" class="com.dowjones.activemq.selectoraware.storage.jdbc.DJSubscriptionCacheStorageJDBC">
+        <property name="dbConnectionUrl" value="jdbc:mysql://DB_HOSTNAME/DB_NAME?relaxAutoCommit=true&amp;createDatabaseIfNotExist=true" />
+        <property name="dbuser" value="DB_USER" />
+        <property name="dbpassword" value="DB_PASSWORD" />
+    </bean>
 
     <bean id="mysql-ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 
@@ -194,12 +210,17 @@
         <property name="poolPreparedStatements" value="true"/>
 
     </bean>
+
+
     <!--
         Enable web consoles, REST and Ajax APIs and demos
         The web consoles requires by default login, you can disable this in the jetty.xml file
 
         Take a look at ${ACTIVEMQ_HOME}/conf/jetty.xml for more details
     -->
+
+
+
     <import resource="jetty.xml"/>
 
 </beans>

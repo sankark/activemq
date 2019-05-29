@@ -6,6 +6,7 @@ RUN apt-get install -y iputils-ping
 RUN apt-get install -y dnsutils
 RUN apt-get install -y mysql-client-core-5.6
 
+
 # Copy the app setting
 COPY assets/config/activemq.xml /opt/activemq/conf/activemq.xml
 COPY assets/config/log4j.properties /opt/activemq/conf/log4j.properties
@@ -18,6 +19,9 @@ RUN chmod +x /app/run.sh
 COPY assets/activemq-k8s-discovery-1.0.2-jar-with-dependencies.jar /opt/activemq/lib/
 RUN cd /opt/activemq/lib/optional && { curl -O http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.14/mysql-connector-java-8.0.14.jar ; cd -; }
 RUN cd /opt/activemq/lib/optional && { curl -O http://central.maven.org/maven2/org/apache/commons/commons-dbcp2/2.1.1/commons-dbcp2-2.1.1.jar ; cd -; }
+
+# Custom plugin
+ADD plugins/selectoraware /opt/activemq/lib/extra
 
 # Expose all port
 EXPOSE 8161
