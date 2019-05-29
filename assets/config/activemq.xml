@@ -186,7 +186,7 @@
 
 
         <plugins>
-            <bean xmlns="http://www.springframework.org/schema/beans" id="djVirtualSelectorCacheBrokerPlugin"       class="com.dowjones.activemq.selectoraware.broker.DJSubQueueSelectorCacheBrokerPlugin">
+            <bean xmlns="http://www.springframework.org/schema/beans" id="djVirtualSelectorCacheBrokerPlugin" class="com.dowjones.activemq.selectoraware.broker.DJSubQueueSelectorCacheBrokerPlugin">
                 <property name="cacheStorage" ref="cacheStorageJDBC" />
             </bean>
         </plugins>
