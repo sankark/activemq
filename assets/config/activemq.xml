@@ -126,6 +126,17 @@
         -->
 
         <persistenceAdapter>
+
+            <journaledJDBC useJournal="false">
+
+                <statements>
+
+                    <statements binaryDataType ="LONGBLOB"/>
+
+                </statements>
+
+            </journaledJDBC>
+
             <jdbcPersistenceAdapter dataDirectory="${activemq.data}/activemq-data" dataSource="#mysql-ds">
                 <locker>
                     <lease-database-locker lockAcquireSleepInterval="10000"/>
