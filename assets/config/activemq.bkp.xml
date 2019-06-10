@@ -37,7 +37,7 @@
     <!--
         The <broker schedulerSupport="true"> element is used to configure the ActiveMQ broker.
     -->
-    <broker schedulerSupport="true" xmlns="http://activemq.apache.org/schema/core" brokerName="activemq-0" dataDirectory="${activemq.data}">
+    <broker useJmx="true" schedulerSupport="true" xmlns="http://activemq.apache.org/schema/core" brokerName="activemq-0" dataDirectory="${activemq.data}">
 
         <destinationPolicy>
             <policyMap>
@@ -73,7 +73,7 @@
             http://activemq.apache.org/jmx.html
         -->
         <managementContext>
-            <managementContext createConnector="false"/>
+            <managementContext createConnector="true" rmiServerPort="1098"  connectorPort="1099"  />
         </managementContext>
 
         <!--
@@ -84,13 +84,13 @@
             http://activemq.apache.org/persistence.html
         -->
 
-        <persistenceAdapter>
-            <jdbcPersistenceAdapter dataDirectory="${activemq.data}/activemq-data" dataSource="#mysql-ds">
-                <locker>
-                    <lease-database-locker lockAcquireSleepInterval="10000"/>
-                </locker>
-            </jdbcPersistenceAdapter>
-        </persistenceAdapter>
+        <!--<persistenceAdapter>-->
+            <!--<jdbcPersistenceAdapter dataDirectory="${activemq.data}/activemq-data" dataSource="#mysql-ds">-->
+                <!--<locker>-->
+                    <!--<lease-database-locker lockAcquireSleepInterval="10000"/>-->
+                <!--</locker>-->
+            <!--</jdbcPersistenceAdapter>-->
+        <!--</persistenceAdapter>-->
 
 
         <!--
@@ -141,15 +141,15 @@
         </networkConnectors>
 </broker>
 
-    <bean id="mysql-ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+    <!--<bean id="mysql-ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
 
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://master.activemq.contentmgmt.int.pib.dowjones.io/activemq-0?relaxAutoCommit=true&amp;createDatabaseIfNotExist=true"/>
-        <property name="username" value="myuser"/>
-        <property name="password" value="mypassword"/>
-        <property name="poolPreparedStatements" value="true"/>
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+        <!--<property name="url" value="jdbc:mysql://master.activemq.contentmgmt.int.pib.dowjones.io/activemq-0?relaxAutoCommit=true&amp;createDatabaseIfNotExist=true"/>-->
+        <!--<property name="username" value="myuser"/>-->
+        <!--<property name="password" value="mypassword"/>-->
+        <!--<property name="poolPreparedStatements" value="true"/>-->
 
-    </bean>
+    <!--</bean>-->
     <!--
         Enable web consoles, REST and Ajax APIs and demos
         The web consoles requires by default login, you can disable this in the jetty.xml file

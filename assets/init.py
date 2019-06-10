@@ -6,6 +6,7 @@ import os
 import shutil
 import re
 from distutils.dir_util import copy_tree
+from distutils.dir_util import copy_tree
 import subprocess
 import time
 
