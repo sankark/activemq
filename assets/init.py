@@ -245,6 +245,8 @@ class ServiceRun():
         self.replace_all(ACTIVEMQ_HOME + "/bin/linux-x86-64/wrapper.conf", "#?wrapper\.java\.initmemory=\d+", 'wrapper.java.initmemory=' + str(minMemoryInMB))
         self.replace_all(ACTIVEMQ_HOME + "/bin/linux-x86-64/wrapper.conf", "#?wrapper\.java\.maxmemory=\d+", 'wrapper.java.maxmemory=' + str(maxMemoryInMb))
 
+        self.replace_all(ACTIVEMQ_HOME + "/bin/linux-x86-32/wrapper.conf", "#?wrapper\.java\.initmemory=\d+", 'wrapper.java.initmemory=' + str(minMemoryInMB))
+        self.replace_all(ACTIVEMQ_HOME + "/bin/linux-x86-32/wrapper.conf", "#?wrapper\.java\.maxmemory=\d+", 'wrapper.java.maxmemory=' + str(maxMemoryInMb))
 
     def do_init_activemq(self):
 
