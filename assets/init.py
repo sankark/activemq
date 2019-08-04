@@ -368,9 +368,9 @@ if __name__ == '__main__':
     serviceRun.create_database(db_hostname, db_user, db_password, name)
     serviceRun.do_setting_activemq_main(name,
                                         os.getenv('ACTIVEMQ_PENDING_MESSAGE_LIMIT', '1000'),
-                                        os.getenv('ACTIVEMQ_STORAGE_USAGE', '100 gb'),
-                                        os.getenv('ACTIVEMQ_TEMP_USAGE', '50 gb'),
-                                        os.getenv('ACTIVEMQ_MAX_CONNECTION', '1000'),
+                                        os.getenv('ACTIVEMQ_STORAGE_USAGE', '10 gb'),
+                                        os.getenv('ACTIVEMQ_TEMP_USAGE', '5 gb'),
+                                        os.getenv('ACTIVEMQ_MAX_CONNECTION', '500'),
                                         os.getenv('ACTIVEMQ_FRAME_SIZE', '104857600'),
                                         os.getenv('ACTIVEMQ_STATIC_TOPICS'),
                                         os.getenv('ACTIVEMQ_STATIC_QUEUES'),
