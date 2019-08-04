@@ -68,6 +68,9 @@
                         <messageGroupMapFactory>
                             <simpleMessageGroupMapFactory/>
                         </messageGroupMapFactory>
+                        <pendingQueuePolicy>
+                            <fileQueueCursor />
+                        </pendingQueuePolicy>
                         <pendingMessageLimitStrategy>
                             <constantPendingMessageLimitStrategy limit="-1"/>
                         </pendingMessageLimitStrategy>
