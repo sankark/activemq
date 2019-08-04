@@ -56,7 +56,7 @@
                     <!--</policyEntry>-->
 
 
-                    <policyEntry queue=">" memoryLimit="1024mb" timeBeforeDispatchStarts="5000" producerFlowControl="false" maxPageSize="1000" useCache="true"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
+                    <policyEntry queue=">" memoryLimit="50mb" timeBeforeDispatchStarts="5000" producerFlowControl="false" maxPageSize="1000" useCache="true"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
 
                         <networkBridgeFilterFactory>
                             <conditionalNetworkBridgeFilterFactory replayDelay="1000" replayWhenNoConsumers="true"/>
@@ -152,7 +152,7 @@
         <systemUsage>
             <systemUsage sendFailIfNoSpace="true">
                 <memoryUsage>
-                    <memoryUsage percentOfJvmHeap="60" />
+                    <memoryUsage limit="1024 mb"/>
                 </memoryUsage>
                 <storeUsage>
                     <storeUsage limit="20 gb"/>
