@@ -358,6 +358,8 @@ if __name__ == '__main__':
 
     # remove localnode from the connector
 
+    
+
     current_node = "tcp://%s:61616" % name
     if connector_uri.find(current_node+",") > -1:
         connector_uri = connector_uri.replace(current_node+",", "")
