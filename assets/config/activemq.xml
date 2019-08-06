@@ -171,7 +171,7 @@
         -->
         <transportConnectors>
             <!-- DOS protection, limit concurrent connections to 1000 and frame size to 100MB -->
-            <transportConnector updateClusterClients="false" enableStatusMonitor="true" name="openwire" uri="nio://0.0.0.0:61616?updateClusterClients=true&amp;maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
+            <transportConnector updateClusterClients="false" enableStatusMonitor="true" name="openwire" uri="tcp://0.0.0.0:61616?updateClusterClients=true&amp;maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
             <transportConnector updateClusterClients="false" name="amqp" uri="amqp://0.0.0.0:5672?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
             <transportConnector updateClusterClients="false" enableStatusMonitor="true" name="stomp" uri="stomp://0.0.0.0:61613?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
             <transportConnector updateClusterClients="false" name="mqtt" uri="mqtt://0.0.0.0:1883?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
