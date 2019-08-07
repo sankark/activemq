@@ -211,8 +211,8 @@ class ServiceRun():
         if enableConnector == "true":
             rightManagement = """<networkConnectors>
           <networkConnector uri="%s"
-            dynamicOnly="true"
-            networkTTL="4"
+            dynamicOnly="false"
+            networkTTL="10"
             prefetchSize="1"
             decreaseNetworkConsumerPriority="true" />
         </networkConnectors> \n""" % (connector_uri)
