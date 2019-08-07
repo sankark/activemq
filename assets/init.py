@@ -212,7 +212,7 @@ class ServiceRun():
             rightManagement = """<networkConnectors>
           <networkConnector uri="%s"
             dynamicOnly="true"
-            networkTTL="10"
+            networkTTL="4"
             prefetchSize="1"
             decreaseNetworkConsumerPriority="true" />
         </networkConnectors> \n""" % (connector_uri)
