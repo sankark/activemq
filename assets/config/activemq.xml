@@ -63,7 +63,7 @@
                         </networkBridgeFilterFactory>
 
                         <dispatchPolicy>
-                            <roundRobinDispatchPolicy />
+                            <strictOrderDispatchPolicy />
                         </dispatchPolicy>
                         <messageGroupMapFactory>
                             <simpleMessageGroupMapFactory/>
