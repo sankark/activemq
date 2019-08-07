@@ -56,18 +56,18 @@
                     <!--</policyEntry>-->
 
 
-                    <policyEntry queue=">" producerFlowControl="false">
+                    <policyEntry queue=">" timeBeforeDispatchStarts="5000" producerFlowControl="false" maxPageSize="1000" useCache="true"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
 
                         <!--<networkBridgeFilterFactory>-->
-                            <!--<conditionalNetworkBridgeFilterFactory replayDelay="10000" replayWhenNoConsumers="true"/>-->
+                            <!--<conditionalNetworkBridgeFilterFactory replayDelay="1000" replayWhenNoConsumers="true"/>-->
                         <!--</networkBridgeFilterFactory>-->
 
+                        <dispatchPolicy>
+                            <roundRobinDispatchPolicy />
+                        </dispatchPolicy>
                         <messageGroupMapFactory>
                             <simpleMessageGroupMapFactory/>
                         </messageGroupMapFactory>
-                        <!--<pendingQueuePolicy>-->
-                            <!--<fileQueueCursor />-->
-                        <!--</pendingQueuePolicy>-->
                         <pendingMessageLimitStrategy>
                             <constantPendingMessageLimitStrategy limit="-1"/>
                         </pendingMessageLimitStrategy>
@@ -78,7 +78,7 @@
                     <policyEntry topic=">" producerFlowControl="false" useCache="true" >
 
                         <dispatchPolicy>
-                            <strictOrderDispatchPolicy />
+                            <roundRobinDispatchPolicy />
                         </dispatchPolicy>
 
                         <messageGroupMapFactory>
@@ -147,15 +147,15 @@
           http://activemq.apache.org/producer-flow-control.html
         -->
         <systemUsage>
-            <systemUsage sendFailIfNoSpace="true">
+            <systemUsage>
                 <memoryUsage>
-                    <memoryUsage limit="1024 mb"/>
+                    <memoryUsage percentOfJvmHeap="70" />
                 </memoryUsage>
                 <storeUsage>
-                    <storeUsage limit="20 gb"/>
+                    <storeUsage limit="100 gb"/>
                 </storeUsage>
                 <tempUsage>
-                    <tempUsage limit="10 gb"/>
+                    <tempUsage limit="50 gb"/>
                 </tempUsage>
             </systemUsage>
         </systemUsage>
