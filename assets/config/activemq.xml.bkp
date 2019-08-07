@@ -56,7 +56,7 @@
                     <!--</policyEntry>-->
 
 
-                    <policyEntry queue=">" timeBeforeDispatchStarts="5000" producerFlowControl="false" maxPageSize="1000" useCache="true"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
+                    <policyEntry queue=">" memoryLimit="50mb" timeBeforeDispatchStarts="5000" producerFlowControl="false" maxPageSize="1000" useCache="true"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
 
                         <networkBridgeFilterFactory>
                             <conditionalNetworkBridgeFilterFactory replayDelay="1000" replayWhenNoConsumers="true"/>
@@ -68,9 +68,9 @@
                         <messageGroupMapFactory>
                             <simpleMessageGroupMapFactory/>
                         </messageGroupMapFactory>
-                        <!--<pendingQueuePolicy>-->
-                            <!--<fileQueueCursor />-->
-                        <!--</pendingQueuePolicy>-->
+                        <pendingQueuePolicy>
+                            <fileQueueCursor />
+                        </pendingQueuePolicy>
                         <pendingMessageLimitStrategy>
                             <constantPendingMessageLimitStrategy limit="-1"/>
                         </pendingMessageLimitStrategy>
@@ -171,11 +171,11 @@
         -->
         <transportConnectors>
             <!-- DOS protection, limit concurrent connections to 1000 and frame size to 100MB -->
-            <transportConnector name="openwire" uri="tcp://0.0.0.0:61616?updateClusterClients=true&amp;maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
-            <transportConnector name="amqp" uri="amqp://0.0.0.0:5672?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
-            <transportConnector name="stomp" uri="stomp://0.0.0.0:61613?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
-            <transportConnector name="mqtt" uri="mqtt://0.0.0.0:1883?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
-            <transportConnector name="ws" uri="ws://0.0.0.0:61614?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
+            <transportConnector updateClusterClients="false" enableStatusMonitor="true" name="openwire" uri="tcp://0.0.0.0:61616?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
+            <transportConnector updateClusterClients="false" name="amqp" uri="amqp://0.0.0.0:5672?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
+            <transportConnector updateClusterClients="false" enableStatusMonitor="true" name="stomp" uri="stomp://0.0.0.0:61613?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
+            <transportConnector updateClusterClients="false" name="mqtt" uri="mqtt://0.0.0.0:1883?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
+            <transportConnector updateClusterClients="false" name="ws" uri="ws://0.0.0.0:61614?maximumConnections=500&amp;wireFormat.maxFrameSize=104857600"/>
         </transportConnectors>
 
         <!-- destroy the spring context on shutdown to stop jetty -->
