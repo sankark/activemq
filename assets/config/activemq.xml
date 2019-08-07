@@ -58,9 +58,9 @@
 
                     <policyEntry queue=">" timeBeforeDispatchStarts="5000" producerFlowControl="false" maxPageSize="1000" useCache="true"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
 
-                        <networkBridgeFilterFactory>
-                            <conditionalNetworkBridgeFilterFactory replayDelay="1000" replayWhenNoConsumers="true"/>
-                        </networkBridgeFilterFactory>
+                        <!--<networkBridgeFilterFactory>-->
+                            <!--<conditionalNetworkBridgeFilterFactory replayDelay="1000" replayWhenNoConsumers="true"/>-->
+                        <!--</networkBridgeFilterFactory>-->
 
                         <dispatchPolicy>
                             <roundRobinDispatchPolicy />
