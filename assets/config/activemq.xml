@@ -66,7 +66,7 @@
                             <roundRobinDispatchPolicy />
                         </dispatchPolicy>
                         <pendingQueuePolicy>
-                            <vmQueueCursor />
+                            <fileQueueCursor />
                         </pendingQueuePolicy>
                         <messageGroupMapFactory>
                             <simpleMessageGroupMapFactory/>
@@ -152,13 +152,13 @@
         <systemUsage>
             <systemUsage sendFailIfNoSpace="true">
                 <memoryUsage>
-                    <memoryUsage percentOfJvmHeap="65" />
+                    <memoryUsage percentOfJvmHeap="55" />
                 </memoryUsage>
                 <storeUsage>
                     <storeUsage limit="100 gb"/>
                 </storeUsage>
                 <tempUsage>
-                    <tempUsage limit="50 gb"/>
+                    <tempUsage limit="1 gb"/>
                 </tempUsage>
             </systemUsage>
         </systemUsage>
