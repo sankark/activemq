@@ -212,7 +212,7 @@ class ServiceRun():
             rightManagement = """<networkConnectors>
           <networkConnector uri="%s"
             dynamicOnly="true"
-            networkTTL="1"
+            networkTTL="10"
             prefetchSize="1"
             conduitSubscriptions="false"
             alwaysSyncSend="true"
