@@ -213,10 +213,7 @@ class ServiceRun():
           <networkConnector uri="%s"
             dynamicOnly="false"
             networkTTL="1"
-            prefetchSize="1"
-            conduitSubscriptions="false"
-            alwaysSyncSend="true"
-            decreaseNetworkConsumerPriority="true" />
+            prefetchSize="1"/>
         </networkConnectors> \n""" % (connector_uri)
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
 
