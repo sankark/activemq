@@ -214,6 +214,8 @@ class ServiceRun():
             dynamicOnly="true"
             networkTTL="1"
             prefetchSize="1"
+            conduitSubscriptions="false"
+            alwaysSyncSend="true"
             decreaseNetworkConsumerPriority="true" />
         </networkConnectors> \n""" % (connector_uri)
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
