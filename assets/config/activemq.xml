@@ -152,7 +152,7 @@
         <systemUsage>
             <systemUsage sendFailIfNoSpace="true">
                 <memoryUsage>
-                    <memoryUsage percentOfJvmHeap="65" />
+                    <memoryUsage percentOfJvmHeap="55" />
                 </memoryUsage>
                 <storeUsage>
                     <storeUsage limit="100 gb"/>
