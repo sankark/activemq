@@ -213,7 +213,7 @@ class ServiceRun():
           <networkConnector uri="%s"
             dynamicOnly="false"
             suppressDuplicateQueueSubscriptions="true"
-            decreaseNetworkConsumerPriority="true"
+            conduitSubscriptions="true"
             networkTTL="1"
             prefetchSize="1"/>
         </networkConnectors> \n""" % (connector_uri)
