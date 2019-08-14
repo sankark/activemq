@@ -13,6 +13,6 @@ dynamicAnalysis:
   type: nope
 publish:
   type: docker
-version: 1.0.9
+version: 1.1.0
 testCommand: "echo hello"
 deploy:
