@@ -56,7 +56,7 @@
                     <!--</policyEntry>-->
 
 
-                    <policyEntry queue=">" timeBeforeDispatchStarts="5000" producerFlowControl="true" maxPageSize="1000" useCache="true"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
+                    <policyEntry queue=">" timeBeforeDispatchStarts="5000" producerFlowControl="true" maxPageSize="1000" useCache="false"  expireMessagesPeriod="0" optimizedDispatch="true" queuePrefetch="50" enableAudit="false">
 
                         <networkBridgeFilterFactory>
                             <conditionalNetworkBridgeFilterFactory replayDelay="5000" replayWhenNoConsumers="false"/>
@@ -66,7 +66,7 @@
                             <roundRobinDispatchPolicy />
                         </dispatchPolicy>
                         <pendingQueuePolicy>
-                            <fileQueueCursor />
+                            <vmQueueCursor />
                         </pendingQueuePolicy>
                         <messageGroupMapFactory>
                             <simpleMessageGroupMapFactory/>
@@ -78,7 +78,7 @@
                     </policyEntry>
 
 
-                    <policyEntry topic=">" producerFlowControl="false" useCache="true" >
+                    <policyEntry topic=">" producerFlowControl="true" useCache="false" >
 
                         <dispatchPolicy>
                             <roundRobinDispatchPolicy />
@@ -152,13 +152,13 @@
         <systemUsage>
             <systemUsage sendFailIfNoSpace="true">
                 <memoryUsage>
-                    <memoryUsage percentOfJvmHeap="55" />
+                    <memoryUsage percentOfJvmHeap="65" />
                 </memoryUsage>
                 <storeUsage>
                     <storeUsage limit="100 gb"/>
                 </storeUsage>
                 <tempUsage>
-                    <tempUsage limit="1 gb"/>
+                    <tempUsage limit="10 gb"/>
                 </tempUsage>
             </systemUsage>
         </systemUsage>
