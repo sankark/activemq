@@ -212,10 +212,11 @@ class ServiceRun():
         if enableConnector == "true":
             rightManagement = """<networkConnectors>
           <networkConnector uri="%s"
-            dynamicOnly="false"
+            dynamicOnly="true"
             suppressDuplicateQueueSubscriptions="true"
             conduitSubscriptions="true"
-            networkTTL="1"
+            networkTTL="2"
+            decreaseNetworkConsumerPriority=true
             prefetchSize="1"/>
         </networkConnectors> \n""" % (connector_uri)
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
