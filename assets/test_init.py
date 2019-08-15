@@ -497,6 +497,25 @@ class InitTestCase(unittest.TestCase):
 
         self.assertRegexpMatches(contend, "/var/log/activemq/", "Problem when init the log4j")
 
+    def test_servicename(self):
+        import string
+        count = 0
+        service_name = ""
+        name = "activemq-0"
+        for char in list(string.ascii_lowercase):
+            if "activemq-%s" % count ==  name:
+                service_name = "activemq-%s" % char
+                break
+            count += 1
+
+        connector_uri = "static://(tcp://activemq-a:61616,tcp://activemq-b:61616,tcp://activemq-c:61616)?initialReconnectDelay=2000&amp;useExponentialBackOff=false&amp;keepAlive=true"
+        current_node = "tcp://%s:61616" % service_name
+        if connector_uri.find(current_node+",") > -1:
+            connector_uri = connector_uri.replace(current_node+",", "")
+        else:
+            connector_uri = connector_uri.replace(","+current_node, "")
+        print(connector_uri)
+        print service_name
 
 
 if __name__ == '__main__':

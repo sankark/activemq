@@ -9,6 +9,7 @@ from distutils.dir_util import copy_tree
 from distutils.dir_util import copy_tree
 import subprocess
 import time
+import string
 
 ACTIVEMQ_HOME = "/opt/activemq"
 ACTIVEMQ_CONF = ACTIVEMQ_HOME + '/conf.tmp'
@@ -359,7 +360,16 @@ if __name__ == '__main__':
 
     # remove localnode from the connector
 
-    current_node = "tcp://%s:61616" % name
+    count = 0
+    service_name = ""
+    for char in list(string.ascii_lowercase):
+        if "activemq-%s" % count ==  name:
+            service_name = "activemq-%s" % char
+            break
+        count += 1
+
+
+    current_node = "tcp://%s:61616" % service_name
     if connector_uri.find(current_node+",") > -1:
         connector_uri = connector_uri.replace(current_node+",", "")
     else:
