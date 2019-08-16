@@ -213,8 +213,6 @@ class ServiceRun():
         if enableConnector == "true":
             rightManagement = """<networkConnectors>
           <networkConnector uri="%s"
-            suppressDuplicateQueueSubscriptions="true"
-            conduitSubscriptions="true"
             messageTTL="-1"
             consumerTTL="1"
             prefetchSize="1"/>
