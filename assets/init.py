@@ -215,7 +215,7 @@ class ServiceRun():
           <networkConnector uri="%s"
             suppressDuplicateQueueSubscriptions="true"
             conduitSubscriptions="true"
-            messageTTL="2"
+            messageTTL="-1"
             consumerTTL="1"
             prefetchSize="1"/>
         </networkConnectors> \n""" % (connector_uri)
