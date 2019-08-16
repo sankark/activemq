@@ -170,6 +170,7 @@ class ServiceRun():
             raise KeyError("You must set the frameSize")
 
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'brokerName="[^"]*"', 'brokerName="' + name + '"')
+        self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", 'brokerId="[^"]*"', 'brokerName="' + name + '"')
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '<constantPendingMessageLimitStrategy limit="\d+"/>', '<constantPendingMessageLimitStrategy limit="' + str(messageLimit) + '"/>')
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '<storeUsage limit="[^"]+"/>', '<storeUsage limit="' + storageUsage + '"/>')
         self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '<tempUsage limit="[^"]+"/>', '<tempUsage limit="' + tempUsage + '"/>')
@@ -212,11 +213,10 @@ class ServiceRun():
         if enableConnector == "true":
             rightManagement = """<networkConnectors>
           <networkConnector uri="%s"
-            dynamicOnly="true"
             suppressDuplicateQueueSubscriptions="true"
             conduitSubscriptions="true"
-            networkTTL="2"
-            decreaseNetworkConsumerPriority="true"
+            messageTTL="1"
+            consumerTTL="-1"
             prefetchSize="1"/>
         </networkConnectors> \n""" % (connector_uri)
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')

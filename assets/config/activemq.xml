@@ -37,7 +37,7 @@
     <!--
         The <broker> element is used to configure the ActiveMQ broker.
     -->
-    <broker useJmx="true" xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" dataDirectory="${activemq.data}">
+    <broker useJmx="true" xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" brokerId="localhost" dataDirectory="${activemq.data}">
 
         <destinations>
             <queue physicalName="Selector.cgw_aidest.VirtualTopic.Selector.delivery.aidest" />
@@ -59,7 +59,7 @@
                     <policyEntry queue=">" timeBeforeDispatchStarts="1000" producerFlowControl="true" cursorMemoryHighWaterMark="10" optimizedDispatch="true" maxPageSize="100" useCache="false"  expireMessagesPeriod="0" queuePrefetch="10" enableAudit="false">
 
                         <networkBridgeFilterFactory>
-                            <conditionalNetworkBridgeFilterFactory replayDelay="30000" rateDuration="1000" rateLimit="500" replayWhenNoConsumers="true"/>
+                            <conditionalNetworkBridgeFilterFactory replayDelay="1000" rateDuration="1000" rateLimit="1" replayWhenNoConsumers="true"/>
                         </networkBridgeFilterFactory>
 
                         <dispatchPolicy>
