@@ -56,7 +56,7 @@
                     <!--</policyEntry>-->
 
 
-                    <policyEntry queue=">" timeBeforeDispatchStarts="1000" producerFlowControl="true" cursorMemoryHighWaterMark="10" optimizedDispatch="true" maxPageSize="100" useCache="false"  expireMessagesPeriod="0" queuePrefetch="10" enableAudit="false">
+                    <policyEntry queue=">" timeBeforeDispatchStarts="1000" producerFlowControl="true" cursorMemoryHighWaterMark="10" optimizedDispatch="true" maxPageSize="100" useCache="false"  expireMessagesPeriod="0" queuePrefetch="10" enableAudit="true">
 
                         <networkBridgeFilterFactory>
                             <conditionalNetworkBridgeFilterFactory replayDelay="10000" rateDuration="10000" replayWhenNoConsumers="true"/>
