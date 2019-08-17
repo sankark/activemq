@@ -215,7 +215,7 @@ class ServiceRun():
           <networkConnector uri="%s"
             messageTTL="-1"
             consumerTTL="1"
-            prefetchSize="1"/>
+            prefetchSize="1000"/>
         </networkConnectors> \n""" % (connector_uri)
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
 
