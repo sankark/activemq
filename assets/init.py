@@ -216,6 +216,7 @@ class ServiceRun():
             messageTTL="1"
             consumerTTL="1"
             decreaseNetworkConsumerPriority="true"
+            suppressDuplicateQueueSubscriptions="true"
             prefetchSize="1000"/>
         </networkConnectors> \n""" % (connector_uri)
             self.replace_all(ACTIVEMQ_CONF + "/activemq.xml", '</broker>', rightManagement + '</broker>')
