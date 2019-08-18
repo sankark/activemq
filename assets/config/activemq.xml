@@ -59,7 +59,7 @@
                     <policyEntry queue=">" timeBeforeDispatchStarts="1000" producerFlowControl="true" cursorMemoryHighWaterMark="10" optimizedDispatch="true" maxPageSize="100" useCache="false"  expireMessagesPeriod="0" queuePrefetch="1" enableAudit="true">
 
                         <networkBridgeFilterFactory>
-                            <conditionalNetworkBridgeFilterFactory rateLimit="1" replayWhenNoConsumers="true"/>
+                            <conditionalNetworkBridgeFilterFactory rateLimit="1000" replayWhenNoConsumers="true"/>
                         </networkBridgeFilterFactory>
 
                         <dispatchPolicy>
