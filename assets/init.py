@@ -213,7 +213,7 @@ class ServiceRun():
         if enableConnector == "true":
             rightManagement = """<networkConnectors>
           <networkConnector uri="%s"
-            messageTTL="-1"
+            messageTTL="1"
             consumerTTL="1"
             decreaseNetworkConsumerPriority="true"
             prefetchSize="1"/>
