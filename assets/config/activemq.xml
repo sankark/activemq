@@ -142,6 +142,7 @@
         </persistenceAdapter>
 
 
+
         <!--
           The systemUsage controls the maximum amount of space the broker will
           use before disabling caching and/or slowing down producers. For more information, see:
